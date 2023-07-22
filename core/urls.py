@@ -38,3 +38,5 @@ urlpatterns = [
             name='schema-json'),
     re_path(r'^api/v1/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + default_router.urls
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
