@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "mobi-market"
+version = "0.1.0"
+description = ""
+authors = ["Nakadzima9 <pascal.german@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "mobi_market"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "3.2.20"
+python-decouple = "^3.8"
+djangorestframework = "^3.14.0"
+drf-yasg = "^1.21.6"
+django-cors-headers = "^4.2.0"
+djangorestframework-simplejwt = "^5.2.2"
+django-phone-verify = "^3.0.0"
+django-filter = "^23.2"
+pillow = "^10.0.0"
+coreapi = "^2.3.3"
+pyyaml = "^6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
