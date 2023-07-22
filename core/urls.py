@@ -31,9 +31,9 @@ default_router.register('phone', CustomPhoneVerificationViewSet, basename='phone
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
-    path('api/', include(user_router.urls)),
-    path("api/", include(store_router.urls)),
-    path("api/auth/", include("users.urls")),
+    path('users/', include(user_router.urls)),
+    path("store/", include(store_router.urls)),
+    path("auth/", include("users.urls")),
     re_path(r'^api/v1/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
             name='schema-json'),
     re_path(r'^api/v1/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
