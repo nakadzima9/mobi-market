@@ -14,7 +14,7 @@ from users.phone_verification_api.views import CustomPhoneVerificationViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="CRM API",
+        title="mobi-market",
         default_version="v1",
         description="Test description",
         terms_of_service="https://www.google.com/policies/terms/",
@@ -32,7 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path('users/', include(user_router.urls)),
-    path("store/", include(store_router.urls)),
+    path("store/", include("store.urls")),
     path("auth/", include("users.urls")),
     re_path(r'^api/v1/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
             name='schema-json'),

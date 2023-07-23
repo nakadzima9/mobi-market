@@ -43,18 +43,18 @@ def get_token(user):
     expires_in = refresh.access_token.lifetime.total_seconds()
     expires_day = (timezone.now() + datetime.timedelta(seconds=expires_in)).strftime('%d/%m/%Y %H:%M:%S')
 
-    return Response(
-        {
+    return {
             'id': user.id,
             "first_name": user.first_name,
             "last_name": user.last_name,
+            "nickname": user.nickname,
+            "surname": user.surname,
+            "phone": user.phone if user.phone else "None",
             "email": user.email,
             "expires_day": expires_day,
-            "user_type": user.user_type,
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         }
-    )
 
 
 def validate_phone(value):

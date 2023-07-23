@@ -2,16 +2,17 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
+    TokenBlacklistView
 )
 from .views import (PasswordChangeView,
                     PasswordResetEmailView,
                     PasswordCheckView,
                     UserViewSet,
                     RegisterView,
-                    PersonalLoginWebView,)
+                    PersonalLoginWebView, )
 
 user_router = DefaultRouter()
-user_router.register(r'user', UserViewSet, basename='user')
+user_router.register(r'', UserViewSet, basename='user')
 
 urlpatterns = [
     path('jwt/token/refresh/',
@@ -21,6 +22,6 @@ urlpatterns = [
     path("password_reset_change/", PasswordChangeView.as_view(), name="password_reset_change"),
     path("password_check/", PasswordCheckView.as_view(), name="password_check"),
     path("register/", RegisterView.as_view(), name="register"),
-    path("login/personal", PersonalLoginWebView.as_view(), name="login")
-
+    path("login/personal", PersonalLoginWebView.as_view(), name="login"),
+    path("logout/personal", TokenBlacklistView.as_view(), name="logout"),
 ]

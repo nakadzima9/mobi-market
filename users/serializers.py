@@ -27,6 +27,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ["nickname", "email"]
 
 
+
 class PasswordCheckSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
@@ -40,6 +41,7 @@ class PasswordCheckSerializer(serializers.ModelSerializer):
 class ChangePasswordSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
     repeat_password = serializers.CharField(write_only=True, required=True)
+    unique_id = serializers.CharField(write_only=True)
 
     def validate(self, data):
         return password_reset_validate(self, data=data, serializer=ChangePasswordSerializer)
@@ -49,6 +51,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         fields = (
             'password',
             'repeat_password',
+            'unique_id'
         )
 
 
@@ -70,5 +73,21 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["first_name", "last_name", "surname", "nickname", "phone", "email", "password"]
+        fields = ["id",  "first_name", "last_name", "surname", "nickname", "phone", "email", "password"]
         extra_kwargs = {'password': {'write_only': True}}
+
+
+class PasswordResetEmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ["email"]
+
+
+class SwaggerTokenBody(serializers.ModelSerializer):
+    refresh = serializers.CharField(read_only=True)
+    access = serializers.CharField(read_only=True)
+    expires_day = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ["id", "first_name", "last_name", "surname", "phone", "email", "expires_day", "refresh", "access"]

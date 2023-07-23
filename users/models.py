@@ -9,9 +9,9 @@ from django.db import models
 
 from django.utils import timezone
 
+
 class MyUserManager(BaseUserManager):
     def create_user(self, email, password=None):
-
         if not email:
             raise ValueError("Users must have an email address")
 
@@ -24,7 +24,6 @@ class MyUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None):
-
         user = self.create_user(
             email,
             password=password,
@@ -34,10 +33,12 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 def user_directory_path(instance, filename):
     extension = filename.split('.')[-1]
     filename = f"{uuid.uuid4()}.{extension}"
     return f"profiles/{timezone.now().date().strftime('%Y/%m/%d')}/{filename}"
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255, verbose_name="Имя", blank=True)
@@ -71,6 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             if not self.password:
                 generate_password = User.objects.make_random_password()
                 self.set_password(generate_password)
+        self.set_password(self.password)
         super(User, self).save(*args, **kwargs)
 
     class Meta:
